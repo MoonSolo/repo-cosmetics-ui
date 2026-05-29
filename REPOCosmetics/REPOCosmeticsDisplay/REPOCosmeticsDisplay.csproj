@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <GenerateReferenceAssemblyAttribute>false</GenerateReferenceAssemblyAttribute>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,38 +32,41 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="mscorlib" />
     <Reference Include="0Harmony, Version=2.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\BepInEx\core\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\REPO_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\REPO_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="BepInEx, Version=5.4.21.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\BepInEx\core\BepInEx.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\BepInEx\core\BepInEx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\REPO_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\REPO_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\REPO_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\REPO_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\REPO_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\REPO_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>C:\Users\cleme\Desktop\Jeux\steam\steamapps\common\REPO\REPO_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>T:\steam\steamapps\common\REPO\REPO_Data\Managed\Unity.TextMeshPro.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CosmeticsManager.cs" />
+    <Compile Include="UIManager.cs" />
     <Compile Include="REPOCosmeticsMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

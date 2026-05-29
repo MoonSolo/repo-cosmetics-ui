@@ -1,0 +1,55 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "msbuild",
+            "args": [
+                "REPOCosmeticsDisplay/REPOCosmeticsDisplay.csproj",
+                "/p:Configuration=Release",
+                "/p:Platform=AnyCPU"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "build-debug",
+            "command": "msbuild",
+            "args": [
+                "REPOCosmeticsDisplay/REPOCosmeticsDisplay.csproj",
+                "/p:Configuration=Debug",
+                "/p:Platform=AnyCPU"
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+        {
+            "label": "clean",
+            "command": "msbuild",
+            "args": [
+                "REPOCosmeticsDisplay/REPOCosmeticsDisplay.csproj",
+                "/t:Clean"
+            ],
+            "problemMatcher": "$msCompile",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}

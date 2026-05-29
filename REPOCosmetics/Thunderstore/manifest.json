@@ -1,0 +1,8 @@
+{
+  "name": "Cosmetics_UI",
+  "version_number": "1.0.0",
+  "website_url": "",
+  "description": "Displays your unlocked cosmetics on the map screen, organized by rarity",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2304"  ]
+}

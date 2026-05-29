@@ -19,7 +19,6 @@ namespace REPOCosmeticsDisplay
         public CosmeticRarity Rarity { get; set; }
         public bool IsUnlocked { get; set; }
         public Texture2D Icon { get; set; }
-
         public Color GetRarityColor()
         {
             switch (Rarity)

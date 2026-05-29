@@ -163,13 +163,13 @@ namespace REPOCosmeticsDisplay
                 "#" + ColorUtility.ToHtmlStringRGB(ColDefault), ownedAll, totalAll);
             var parts = new List<string>();
             if (totalCommon   > 0) parts.Add(string.Format(
-                "<color={0}>● \t{1}/{2}</color>", "#" + ColorUtility.ToHtmlStringRGB(ColCommon),    ownedCommon,    totalCommon));
+                "<color={0}>{1}/{2}\t●</color>", "#" + ColorUtility.ToHtmlStringRGB(ColCommon),    ownedCommon,    totalCommon));
             if (totalUncommon > 0) parts.Add(string.Format(
-                "<color={0}>● \t{1}/{2}</color>", "#" + ColorUtility.ToHtmlStringRGB(ColUncommon),  ownedUncommon,  totalUncommon));
+                "<color={0}>{1}/{2}\t●</color>", "#" + ColorUtility.ToHtmlStringRGB(ColUncommon),  ownedUncommon,  totalUncommon));
             if (totalRare     > 0) parts.Add(string.Format(
-                "<color={0}>● \t{1}/{2}</color>", "#" + ColorUtility.ToHtmlStringRGB(ColRare),      ownedRare,      totalRare));
+                "<color={0}>{1}/{2}\t●</color>", "#" + ColorUtility.ToHtmlStringRGB(ColRare),      ownedRare,      totalRare));
             if (totalUltra    > 0) parts.Add(string.Format(
-                "<color={0}>● \t{1}/{2}</color>", "#" + ColorUtility.ToHtmlStringRGB(ColUltraRare), ownedUltra,     totalUltra));
+                "<color={0}>{1}/{2}\t●</color>", "#" + ColorUtility.ToHtmlStringRGB(ColUltraRare), ownedUltra,     totalUltra));
             return parts.Count > 0
                 ? header + "\n" + string.Join("\n", parts.ToArray())
                 : header;

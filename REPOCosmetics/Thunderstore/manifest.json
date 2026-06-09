@@ -1,6 +1,6 @@
 {
   "name": "Cosmetics_UI",
-  "version_number": "1.0.0",
+  "version_number": "1.0.2",
   "website_url": "",
   "description": "Displays your unlocked cosmetics on the map screen, organized by rarity",
   "dependencies": [

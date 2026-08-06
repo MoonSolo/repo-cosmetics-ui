@@ -1,2 +1,0 @@
-C:\Users\cleme\Documents\!projects\repo-cosmetics-ui\REPOCosmetics\REPOCosmeticsDisplay\obj\Release\REPOCosmeticsDisplay.csproj.AssemblyReference.cache
-C:\Users\cleme\Documents\!projects\repo-cosmetics-ui\REPOCosmetics\REPOCosmeticsDisplay\obj\Release\REPOCosmeticsDisplay.csproj.CoreCompileInputs.cache

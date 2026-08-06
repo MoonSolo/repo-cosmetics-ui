@@ -202,7 +202,7 @@ namespace REPOCosmeticsDisplay
             rt.anchorMin        = new Vector2(1f, 1f);
             rt.anchorMax        = new Vector2(1f, 1f);
             rt.pivot            = new Vector2(1f, 1f);
-            rt.anchoredPosition = new Vector2(-80f, 0f);
+            rt.anchoredPosition = new Vector2(-20f, -80f);
             rt.sizeDelta        = new Vector2(320f, 400f);
 
             Log.LogInfo("Cosmetics HUD text element created");

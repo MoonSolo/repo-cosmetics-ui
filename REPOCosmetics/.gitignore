@@ -1,2 +1,12 @@
-*.bat
-REPOCosmetics/REPOCosmeticsDisplay/
+# Local IDE files
+.vscode/
+
+# Build outputs
+REPOCosmeticsDisplay/bin/
+REPOCosmeticsDisplay/obj/
+REPOCosmeticsDisplay/*.pdb
+REPOCosmeticsDisplay/*.zip
+
+# Thunderstore package artifacts
+Thunderstore/*.zip
+Thunderstore/plugins/

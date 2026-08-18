@@ -1,4 +1,5 @@
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
@@ -6,20 +7,32 @@ using TMPro;
 using System.Reflection;
 using System.Collections.Generic;
 
-// cmd /c "C:\Users\cleme\Documents\!projects\repo-cosmetics-ui\REPOCosmetics\REPOCosmeticsDisplay\compile.bat" to compile.
-
 namespace REPOCosmeticsDisplay
 {
-    [BepInPlugin("com.repo.cosmetics.display", "REPO Cosmetics Display", "1.0.0")]
+    public enum HudPositionPreset
+    {
+        Default,
+        TopRight,
+        TopLeft,
+        BottomLeft,
+        BottomRight
+    }
+
+    [BepInPlugin("com.repo.CosmeticsUI", "CosmeticsUI", "1.1.0")]
     public class REPOCosmeticsMod : BaseUnityPlugin
     {
         public static REPOCosmeticsMod Instance;
         public static ManualLogSource Log;
 
+        public static ConfigEntry<HudPositionPreset> Preset;
+        public static ConfigEntry<float> HudOffsetX;
+        public static ConfigEntry<float> HudOffsetY;
+
         private readonly Harmony harmony = new Harmony("com.repo.cosmetics.display");
 
         public static GameObject TextInstance;
         public static TextMeshProUGUI CosmeticsText;
+        private static RectTransform CosmeticsTextTransform;
 
         private static bool        _resolved    = false;
         private static FieldInfo   _fieldRarity = null;
@@ -41,8 +54,99 @@ namespace REPOCosmeticsDisplay
         {
             Instance = this;
             Log = Logger;
-            Log.LogInfo("REPO Cosmetics Display loaded");
+
+            Preset = Config.Bind(
+                "Interface",
+                "Preset (dark magic)",
+                HudPositionPreset.Default,
+                "Select the anchor preset for the cosmetics overlay.");
+            Preset.SettingChanged += OnPresetChanged;
+            HudOffsetX = Config.Bind(
+                "Interface",
+                "X",
+                -20f,
+                "Horizontal offset for the cosmetics overlay.");
+            HudOffsetY = Config.Bind(
+                "Interface",
+                "Y",
+                -80f,
+                "Vertical offset for the cosmetics overlay.");
+
+            ApplyPresetDefaults();
+
+            Log.LogInfo("CosmeticsUI loaded");
             harmony.PatchAll();
+        }
+
+        private static void OnPresetChanged(object sender, System.EventArgs e)
+        {
+            ApplyPresetDefaults();
+        }
+
+        private static void ApplyPresetDefaults()
+        {
+            if (Preset == null || HudOffsetX == null || HudOffsetY == null)
+                return;
+
+            switch (Preset.Value)
+            {
+                case HudPositionPreset.TopLeft:
+                    HudOffsetX.Value = -250f;
+                    HudOffsetY.Value = -70f;
+                    break;
+                case HudPositionPreset.BottomLeft:
+                    HudOffsetX.Value = -250f;
+                    HudOffsetY.Value = -260f;
+                    break;
+                case HudPositionPreset.BottomRight:
+                    HudOffsetX.Value = -20f;
+                    HudOffsetY.Value = -260f;
+                    break;
+                case HudPositionPreset.TopRight:
+                    HudOffsetX.Value = -20f;
+                    HudOffsetY.Value = -100f;
+                    break;
+
+                case HudPositionPreset.Default:
+                default:
+                    HudOffsetX.Value = -20f;
+                    HudOffsetY.Value = -80f;
+                    break;
+            }
+        }
+
+        public static void ApplyPositionPreset()
+        {
+            if (CosmeticsTextTransform == null)
+                return;
+
+            Vector2 anchor;
+            Vector2 position;
+
+            switch (Preset.Value)
+            {
+                case HudPositionPreset.TopLeft:
+                    anchor = new Vector2(0f, 1f);
+                    break;
+                case HudPositionPreset.BottomLeft:
+                    anchor = new Vector2(0f, 0f);
+                    break;
+                case HudPositionPreset.BottomRight:
+                    anchor = new Vector2(1f, 0f);
+                    break;
+                case HudPositionPreset.TopRight:
+                case HudPositionPreset.Default:
+                default:
+                    anchor = new Vector2(1f, 1f);
+                    break;
+            }
+
+            position = new Vector2(HudOffsetX.Value, HudOffsetY.Value);
+
+            CosmeticsTextTransform.anchorMin = anchor;
+            CosmeticsTextTransform.anchorMax = anchor;
+            CosmeticsTextTransform.pivot = anchor;
+            CosmeticsTextTransform.anchoredPosition = position;
         }
 
         public static void ResolveReflection()
@@ -67,7 +171,7 @@ namespace REPOCosmeticsDisplay
                     BindingFlags.Public | BindingFlags.Static);
                 break;
             }
-            Log.LogInfo("MetaManager — cosmeticAssets=" + (_fieldCosmeticAssets != null)
+            Log.LogInfo("MetaManager - cosmeticAssets=" + (_fieldCosmeticAssets != null)
                 + "  cosmeticUnlocks=" + (_fieldCosmeticUnlocks != null)
                 + "  instance=" + (_metaManagerInstanceField != null));
 
@@ -76,7 +180,7 @@ namespace REPOCosmeticsDisplay
                 if (t.Name != "CosmeticAsset") continue;
                 _fieldRarity = t.GetField("rarity",
                     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                Log.LogInfo("CosmeticAsset found — rarity field=" + (_fieldRarity != null));
+                Log.LogInfo("CosmeticAsset found - rarity field=" + (_fieldRarity != null));
                 break;
             }
 
@@ -97,7 +201,7 @@ namespace REPOCosmeticsDisplay
                     else if (lower.Contains("common"))   _rarityCommon    = val;
                 }
                 Log.LogInfo(string.Format(
-                    "Rarity — Common:{0}  Uncommon:{1}  Rare:{2}  UltraRare:{3}",
+                    "Rarity - Common:{0}  Uncommon:{1}  Rare:{2}  UltraRare:{3}",
                     _rarityCommon, _rarityUncommon, _rarityRare, _rarityUltraRare));
             }
         }
@@ -198,12 +302,9 @@ namespace REPOCosmeticsDisplay
             CosmeticsText.alignment = TextAlignmentOptions.TopRight;
             CosmeticsText.richText  = true;
 
-            RectTransform rt    = TextInstance.GetComponent<RectTransform>();
-            rt.anchorMin        = new Vector2(1f, 1f);
-            rt.anchorMax        = new Vector2(1f, 1f);
-            rt.pivot            = new Vector2(1f, 1f);
-            rt.anchoredPosition = new Vector2(-20f, -80f);
-            rt.sizeDelta        = new Vector2(320f, 400f);
+            CosmeticsTextTransform = TextInstance.GetComponent<RectTransform>();
+            CosmeticsTextTransform.sizeDelta = new Vector2(320f, 400f);
+            ApplyPositionPreset();
 
             Log.LogInfo("Cosmetics HUD text element created");
             return true;
@@ -239,6 +340,7 @@ namespace REPOCosmeticsDisplay
 
             REPOCosmeticsMod.ResolveReflection();
             if (!REPOCosmeticsMod.EnsureUI()) return;
+            REPOCosmeticsMod.ApplyPositionPreset();
 
             _frameCounter++;
             if (_frameCounter >= RefreshEvery || _cachedTotalAll == 0)

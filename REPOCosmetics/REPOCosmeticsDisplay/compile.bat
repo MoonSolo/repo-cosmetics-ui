@@ -5,7 +5,7 @@ if not exist bin\Release mkdir bin\Release
 
 "C:\Program Files\JetBrains\JetBrains Rider 2024.3.6\tools\MSBuild\Current\Bin\Roslyn\csc.exe" ^
   /target:library ^
-  /out:bin\Release\REPOCosmeticsDisplay.dll ^
+  /out:bin\Release\CosmeticsUI.dll ^
   /langversion:7 ^
   /r:"C:\Users\cleme\Documents\!projects\BepInEx\core\0Harmony.dll" ^
   /r:"C:\Users\cleme\Documents\!projects\BepInEx\core\BepInEx.dll" ^
@@ -24,7 +24,7 @@ if not exist bin\Release mkdir bin\Release
 
 if %ERRORLEVEL% EQU 0 (
   echo.
-  echo SUCCESS! DLL compiled to: bin\Release\REPOCosmeticsDisplay.dll
+  echo SUCCESS! DLL compiled to: bin\Release\CosmeticsUI.dll
 ) else (
   echo.
   echo BUILD FAILED

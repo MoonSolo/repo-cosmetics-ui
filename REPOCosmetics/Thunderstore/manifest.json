@@ -1,6 +1,6 @@
 {
   "name": "Cosmetics_UI",
-  "version_number": "1.0.4",
+  "version_number": "1.1.0",
   "website_url": "https://github.com/MoonSolo/repo-cosmetics-ui/tree/main/REPOCosmetics/Thunderstore",
   "description": "Displays your number of unlocked cosmetics on the map screen, organized by rarity",
   "dependencies": [
